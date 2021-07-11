@@ -12,20 +12,27 @@ import java.util.List;
 // *********
 // * State *
 // *********
+/* IOUState definido para representar Estados de entrada e saída compartilhados.*/
+
 @BelongsToContract(TemplateContract.class)
 public class IOUState implements ContractState {
 
-    //private variables
+    /* Variáveis Privadas
+    * Utilizadas como exemplos de transação financeira dentro de uma rede corda.
+    * Banco e Cliente
+    * */
     private final int value;
-    private final Party lender;
-    private final Party borrower;
+    private final Party banco;
+    private final Party cliente;
 
 
-    /* Constructor of your Corda state */
-    public IOUState(int value, Party lender, Party borrower) {
+    /* Construtor dos Estado Corda
+    * Suas Party serão Banco e Cliente
+    * */
+    public IOUState(int value, Party banco, Party cliente) {
         this.value = value;
-        this.lender = lender;
-        this.borrower = borrower;
+        this.banco = banco;
+        this.cliente = cliente;
     }
 
     //getters
@@ -33,19 +40,21 @@ public class IOUState implements ContractState {
         return value;
     }
 
-    public Party getLender() {
-        return lender;
+    public Party getBanco() {
+        return banco;
     }
 
-    public Party getBorrower() {
-        return borrower;
+    public Party getCliente() {
+        return cliente;
     }
 
-    /* This method will indicate who are the participants and required signers when
-     * this state is used in a transaction. */
+    /* Este método irá mostrar quem são os participantes e assinantes em uma transação, quando for executada.
+    * Participantes são uma lista de todas as partes que devem ser notificadas da criação ou de alguma alteração
+    * de estado na rede.
+    * */
     @Override
     public List<AbstractParty> getParticipants() {
 
-        return Arrays.asList(lender,borrower);
+        return Arrays.asList(banco,cliente);
     }
 }
